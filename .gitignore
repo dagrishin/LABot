@@ -1,5 +1,6 @@
 /venv/
 /.idea/
+/migrations/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -101,6 +102,7 @@ venv.bak/
 # Spyder project settings
 .spyderproject
 .spyproject
+conf.py
 
 # Rope project settings
 .ropeproject

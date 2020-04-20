@@ -21,6 +21,11 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('api/ticket/v1/', include('tickets.urls')),
+    path('api/interaction/v1/', include('interaction.urls')),
+    path('api/option/v1/', include('user_option.urls')),
+    path('api/registration/v1/', include('registration.urls'))
 ]
 
 if settings.DEBUG:
