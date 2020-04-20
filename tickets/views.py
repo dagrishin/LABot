@@ -1,13 +1,14 @@
-from rest_framework import permissions
+from django.shortcuts import get_object_or_404
+from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from tickets.models import Word
-from tickets.serializers import WordSerializers
+from tickets.serializers import WordSerializer, WordCreateSerializer
 
 
-class Words(APIView):
-    """Диалог чата, сообщение"""
+class WordView(APIView):
+    """Вью карточки"""
 
     permission_classes = [permissions.IsAuthenticated, ]
     # permission_classes = [permissions.AllowAny, ]
@@ -15,20 +16,42 @@ class Words(APIView):
     def get(self, request):
 
         word = Word.objects.filter(user=request.user)
-        serializer = WordSerializers(word, many=True)
+        serializer = WordSerializer(word, many=True)
         return Response({"data": serializer.data})
 
     def post(self, request):
-        # print(request.data)
-        # word = WordPostSerializers(data=request.data)
-        # if word.is_valid():
-        #     word.save(user=request.user)
-        #     return Response(status=201)
-        # else:
-        #     return Response(status=400)
+        serialize = WordCreateSerializer(data=request.data)
+        if serialize.is_valid():
+            serialize.save(user=request.user)
+            return Response(status=201)
+        return Response(status=400)
 
-        Word.objects.create(user=request.user, word_translation=request.data['word_translation'])
-        return Response(status=201)
+
+
+
+class WordDetail(APIView):
+    """Показ одной карточки"""
+
+    permission_classes = [permissions.IsAuthenticated, ]
+    # permission_classes = [permissions.AllowAny, ]
+
+    def get(self, request, pk):
+        user = Word.objects.filter(id=pk).first().user_id
+        if user == request.user.id:
+            word = Word.objects.get(user_id=request.user.id, id=pk)
+            serializer = WordSerializer(word)
+            return Response({"data": serializer.data})
+        return Response({"error": "Access is closed"}, status=status.HTTP_403_FORBIDDEN)
+
+    def post(self, request):
+        serialize = WordCreateSerializer(data=request.data)
+        if serialize.is_valid():
+            serialize.save(user=request.user)
+            return Response(status=201)
+        return Response(status=400)
+
+
+
 
 # from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 # from django.contrib.auth.mixins import LoginRequiredMixin
