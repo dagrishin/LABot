@@ -5,25 +5,29 @@ from registration.models import User
 def time_gen():
     t = []
     for i in range(25):
-        t.append((f'{i}', f'{i}:00'))
+        t.append((f"{i}", f"{i}:00"))
     return t
 
 
 class TimeInterval(models.Model):
     user = models.ForeignKey(
         User,
-        related_name='user_intervals',
+        related_name="user_intervals",
         on_delete=models.CASCADE,
     )
     TIME_INTERVAL = time_gen()
-    time_start = models.CharField(max_length=2, choices=TIME_INTERVAL, default=TIME_INTERVAL[12][0])
-    time_end = models.CharField(max_length=2, choices=TIME_INTERVAL, default=TIME_INTERVAL[18][0])
+    time_start = models.CharField(
+        max_length=2, choices=TIME_INTERVAL, default=TIME_INTERVAL[12][0]
+    )
+    time_end = models.CharField(
+        max_length=2, choices=TIME_INTERVAL, default=TIME_INTERVAL[18][0]
+    )
 
 
 class RepeatAmount(models.Model):
     user = models.ForeignKey(
         User,
-        related_name='user_repeats',
+        related_name="user_repeats",
         on_delete=models.CASCADE,
     )
     words_per_day = models.IntegerField(
@@ -34,7 +38,7 @@ class RepeatAmount(models.Model):
 class Status(models.Model):
     user = models.ForeignKey(
         User,
-        related_name='user_word_status',
+        related_name="user_word_status",
         on_delete=models.CASCADE,
     )
     #
@@ -53,6 +57,3 @@ class Status(models.Model):
     status7 = models.IntegerField(default=259200)
     #
     status8 = models.IntegerField(default=2592000)
-
-
-

@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,15 +14,30 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Word',
+            name="Word",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('word_translation', models.CharField(max_length=150)),
-                ('word_to_learn', models.CharField(max_length=150)),
-                ('description', models.TextField()),
-                ('word_image', models.ImageField(blank=True, upload_to='Word_Images')),
-                ('word_status', models.IntegerField(default=1)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='users_word', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("word_translation", models.CharField(max_length=150)),
+                ("word_to_learn", models.CharField(max_length=150)),
+                ("description", models.TextField()),
+                ("word_image", models.ImageField(blank=True, upload_to="Word_Images")),
+                ("word_status", models.IntegerField(default=1)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="users_word",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

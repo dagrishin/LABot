@@ -12,12 +12,13 @@ class WordAdminForm(forms.ModelForm):
 
     class Meta:
         model = Word
-        fields = '__all__'
+        fields = "__all__"
 
 
 @admin.register(Word)
 class WordAdmin(admin.ModelAdmin):
     """Фильмы"""
+
     # list_display = '__all__'
 
     form = WordAdminForm
