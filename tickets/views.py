@@ -10,11 +10,12 @@ from tickets.serializers import WordSerializer, WordCreateSerializer
 class WordView(APIView):
     """Вью карточки"""
 
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     # permission_classes = [permissions.AllowAny, ]
 
     def get(self, request):
-
         word = Word.objects.filter(user=request.user)
         serializer = WordSerializer(word, many=True)
         return Response({"data": serializer.data})
@@ -27,12 +28,12 @@ class WordView(APIView):
         return Response(status=400)
 
 
-
-
 class WordDetail(APIView):
     """Показ одной карточки"""
 
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
     # permission_classes = [permissions.AllowAny, ]
 
     def get(self, request, pk):
@@ -49,8 +50,6 @@ class WordDetail(APIView):
             serialize.save(user=request.user)
             return Response(status=201)
         return Response(status=400)
-
-
 
 
 # from django.views.generic import DeleteView, DetailView, ListView, UpdateView

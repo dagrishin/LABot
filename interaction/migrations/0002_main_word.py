@@ -5,18 +5,21 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('interaction', '0001_initial'),
-        ('tickets', '0001_initial'),
+        ("interaction", "0001_initial"),
+        ("tickets", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='main',
-            name='word',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='words', to='tickets.Word'),
+            model_name="main",
+            name="word",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="words",
+                to="tickets.Word",
+            ),
         ),
     ]

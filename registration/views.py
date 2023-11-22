@@ -16,7 +16,10 @@ class UserCreate(generics.CreateAPIView):
 class LoginView(APIView):
     permission_classes = ()
 
-    def post(self, request,):
+    def post(
+        self,
+        request,
+    ):
         username = request.data.get("username")
         password = request.data.get("password")
         user = User.objects.filter(username=username).first()
@@ -24,5 +27,9 @@ class LoginView(APIView):
             if user.is_active:
                 user = authenticate(username=username, password=password)
                 return Response({"token": user.auth_token.key})
-            return Response({"error": "Account not verified"}, status=status.HTTP_403_FORBIDDEN)
-        return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "Account not verified"}, status=status.HTTP_403_FORBIDDEN
+            )
+        return Response(
+            {"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST
+        )

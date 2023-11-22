@@ -6,6 +6,7 @@ from tickets.models import Word
 
 class UserSerializer(serializers.ModelSerializer):
     """Сериализация пользователя"""
+
     class Meta:
         model = User
         fields = ("id", "username")
@@ -13,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class WordSerializer(serializers.ModelSerializer):
     """Сериализация карточки"""
+
     user = UserSerializer()
 
     class Meta:
@@ -22,6 +24,7 @@ class WordSerializer(serializers.ModelSerializer):
 
 class WordDetailSerializer(serializers.ModelSerializer):
     """Сериализация карточки"""
+
     user = UserSerializer()
 
     class Meta:
@@ -39,6 +42,3 @@ class WordCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         word = Word.objects.update_or_create(**validated_data)
         return word
-
-
-
